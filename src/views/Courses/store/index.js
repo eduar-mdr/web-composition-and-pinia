@@ -5,17 +5,21 @@ const apiService = useApiService();
 
 export const useCoursesStore =  defineStore('content/courses', {
     state: () => reactive ({
-        courses: null,
-        course: null,
+        data: null,
+        dataActive: null,
+        item: null,
         res: null
     }),
 
     getters: {
         getData (){
-            return this.courses
+            return this.data
+        },
+        getDataActive (){
+            return this.dataActive
         },
         getItem (){
-            return this.course
+            return this.item
         },
         getRes (){
             return this.res
@@ -27,7 +31,17 @@ export const useCoursesStore =  defineStore('content/courses', {
         accFetchData() {
             apiService.apiGetCourses().then(response => {
                 if (response.status === 200) {
-                    this.courses =  response?.data;
+                    this.data =  response?.data;
+                }
+            }).catch((errors) => {
+                this.res =  errors?.response;
+            });
+        },
+        //Fetch active data
+        accFetchDataActive() {
+            apiService.apiGetCoursesActive().then(response => {
+                if (response.status === 200) {
+                    this.dataActive =  response?.data;
                 }
             }).catch((errors) => {
                 this.res =  errors?.response;
@@ -37,7 +51,7 @@ export const useCoursesStore =  defineStore('content/courses', {
         accFetchItem(id) {
             apiService.apiGetCourse(id).then(response => {
                 if (response.status === 200) {
-                    this.course =  response;
+                    this.item =  response;
                 }
             }).catch((errors) => {
                 this.res =  errors?.response;
@@ -49,7 +63,6 @@ export const useCoursesStore =  defineStore('content/courses', {
                 if (response.status === 200) {
                     this.res =  response;
                     this.accFetchData()
-                    //this.courses = this.courses.filter(course => course.id !== id);
                 }
             }).catch((errors) => {
                 this.res =  errors?.response;
@@ -60,15 +73,15 @@ export const useCoursesStore =  defineStore('content/courses', {
             apiService.apiDeleteCourse(id).then(response => {
                 if (response.status === 200) {
                     this.res =  response;
-                    this.courses = this.courses.filter(course => course.id !== id);
+                    this.data = this.data.filter(course => course.id !== id);
                 }
             }).catch((errors) => {
                 this.res =  errors?.response;
             });
         },
         //Reset course and res
-        accResetCourse(){
-            this.course = null
+        accResetItem(){
+            this.item = null
         },
         accResetRes(){
             this.res = null
