@@ -35,12 +35,12 @@ export function useCourses(){
         setDialogCreate(false)
     }
     function onDialogDeleteCancel(){
-        courseStore.accResetCourse()
+        courseStore.accResetItem()
         courseStore.accResetRes()
         setDialogDelete(false)
     }
     function onDialogUpdateCancel(){
-        courseStore.accResetCourse()
+        courseStore.accResetItem()
         courseStore.accResetRes()
         setDialogUpdate(false)
     }
@@ -54,7 +54,7 @@ export function useCourses(){
                 name : courseName.value,
                 description : courseDescription.value
             }
-            courseStore.accResetCourse()
+            courseStore.accResetItem()
             courseStore.accStoreItem(newItem.value)
             setTimeout(() => {
                 const res = courseStore.getRes
@@ -115,7 +115,7 @@ export function useCourses(){
                 setNotification(true, res?.status, res?.data?.message) //Open Notification
                 console.log(alertState.value, code.value, messageData.value);
                 if (res?.status === 200) {
-                    courseStore.accResetCourse()
+                    courseStore.accResetItem()
                     courseStore.accResetRes()
                     setDialogDelete(false)
                 }
@@ -140,7 +140,7 @@ export function useCourses(){
                 console.log(res);
                 setNotification(true, res?.status, res?.data?.message) //Open Notification
                 if (res?.status === 200) {
-                    courseStore.accResetCourse()
+                    courseStore.accResetItem()
                     courseStore.accResetRes()
                     setDialogUpdate(false)
                 }
