@@ -8,7 +8,7 @@ Implementing:
 - Axios (^1.7.2)
 - Pinia (^2.1.7)
 
-Uses a Laravel (^10) API to as a source data.
+Uses a Laravel (^10) API as source data.
 
 ## Project setup
 ```
